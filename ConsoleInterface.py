@@ -1,3 +1,14 @@
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 def ConsoleInterface():
     while True:
       print()
@@ -23,7 +34,7 @@ def ConsoleInterface():
       
       if (choice == "1"):
         while True:
-            print()
+            print(bcolors.OKCYAN)
             print("             *     ,MMM8&&&.            *")
             print("                  MMMM88&&&&&    .")
             print("                 MMMM88&&&&&&&")
@@ -68,7 +79,7 @@ def ConsoleInterface():
             else:
                 break
       elif (choice == "2"):
-        print()
+        print(bcolors.HEADER)
         print("             *     ,MMM8&&&.            *")
         print("                  MMMM88&&&&&    .")
         print("                 MMMM88&&&&&&&")
@@ -95,9 +106,12 @@ def ConsoleInterface():
         dateTimeStart = input("Введите дату и время начала: ")
         dateTimeEnd = input("Введите дату и время начала: ")
         description = input("Введите описание плана: ")
+        if not name or not dateTimeStart or not dateTimeEnd or not description:
+            print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
         #Создание
-        print("План успешно создан")
+        print(bcolors.OKGREEN+"План успешно создан"+bcolors.ENDC)
       elif (choice == "3"):
+        print(bcolors.BOLD+bcolors.WARNING)
         print("                _")
         print("                \`*-.                   ")
         print("                 )  _`-.          ")      
@@ -116,32 +130,64 @@ def ConsoleInterface():
         print("Изменение плана")
         name = input("Введите название плана: ")
         date = input("Введите дату этого плана: ")
+        if not name or not date:
+            print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
         print("Изменяем")
         while True:
             print("1) Название")
             print("2) Время начала и конца")
             print("3) Описание")
-            print("4) Назад")
+            print("4) Всё")
+            print("5) Назад")
             choice3 = input("Введите выбор: ")
             if (choice3 == "1"):
                 #Смена названия
+                nameNew = input("Введите название: ")
+                if not nameNew:
+                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                ##############################
+                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
                 print()
             elif (choice3 == "2"):
                 #Смена времени и даты
+                dateTimeStartNew = input("Введите дату и время начала: ")
+                dateTimeEndNew = input("Введите дату и время начала: ")
+                if not dateTimeStartNew or not dateTimeEndNew:
+                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                ##############################
+                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
                 print()            
             elif (choice3 == "3"):
                 #Смена описания 
+                descriptionNew = input("Введите описание плана: ")
+                if not descriptionNew:
+                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                ##############################
+                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
+                print()
+            elif (choice3 == "4"):
+                #Смена всего 
+                nameNew = input("Введите название: ")
+                dateTimeStartNew = input("Введите дату и время начала: ")
+                dateTimeEndNew = input("Введите дату и время начала: ")
+                descriptionNew = input("Введите описание плана: ")
+                if not nameNew or not dateTimeStartNew or not dateTimeEndNew or not descriptionNew:
+                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                ##############################
+                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
                 print()
             else:
                 break
       elif (choice == "4"):
-        print()    
+        print(bcolors.OKGREEN)  
         print("  /\_/\*")
         print(" ( o.o )")
         print("  > ^ <")
         print("Удаление плана")
         name = input("Введите название плана: ")
         date = input("Введите дату этого плана: ")
+        if not name or not date:
+            print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
         while True:
             print("Вы уверены, что хотите удалить?")
             print("1) Да")
@@ -149,17 +195,39 @@ def ConsoleInterface():
             choice4 = input("Введите выбор: ")
             if (choice4 == "1"):
                 #УДАЛЕНИЕ РАЗ И НАВСЕГДА
-                print("Удаление произошло успешно")
+                print(bcolors.OKGREEN+"Удаление произошло успешно"+bcolors.ENDC)
                 break
             else:
-                print("Удаление отменено")
+                print(bcolors.FAIL+"Удаление отменено"+bcolors.ENDC)
                 break
       elif (choice == "5"):
+        print(bcolors.OKBLUE) 
+        print(" *                  *")
+        print("             __                *")
+        print("          ,db'    *     *")
+        print("         ,d8/       *        *    *")
+        print("         888")
+        print("         `db\       *     *")
+        print("           `o`_                    **")
+        print("      *               *   *    _      *")
+        print("            *                 / )")
+        print("         *    (\__/) *       ( (  *")
+        print("       ,-.,-.,)    (.,-.,-.,-.) ).,-.,-.")
+        print("      | @|  ={      }= | @|  / / | @|o |")
+        print("     _j__j__j_)     `-------/ /__j__j__j_")
+        print("     ________(               /___________")
+        print("      |  | @| \              || o|O | @|")
+        print("      |o |  |,'\       ,   ,''|  |  |  |  ")
+        print("     vV\|/vV|`-'\  ,---\   | \Vv\hjwVv\//v")
+        print("                _) )    `. \ /")
+        print("               (__/       ) )")
+        print("                         (_/")
         print("Завершение работы программы")
-        print("До свидания!")
+        print("До свидания!"+bcolors.ENDC)
         return 0
       else:
         print("Такой опции нет. Попробуйте цифры от 1 до 5")
         
         
 ConsoleInterface()
+
