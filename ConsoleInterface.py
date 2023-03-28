@@ -150,6 +150,7 @@ def ConsoleInterface():
             if (choice4 == "1"):
                 #УДАЛЕНИЕ РАЗ И НАВСЕГДА
                 print("Удаление произошло успешно")
+                break
             else:
                 print("Удаление отменено")
                 break
