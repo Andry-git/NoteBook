@@ -1,3 +1,12 @@
+import parserJSON as J
+"""
+readJSON
+
+delTask
+addTask
+updateTask
+printTaskALL"""
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -8,6 +17,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
 
 def ConsoleInterface():
     while True:
@@ -75,6 +85,7 @@ def ConsoleInterface():
                 print()
             elif (choice1 == "4"):
                 #Планы за всё время 
+                J.printTaskALL(J.readJSON())
                 print()
             else:
                 break
@@ -109,6 +120,12 @@ def ConsoleInterface():
         if not name or not dateTimeStart or not dateTimeEnd or not description:
             print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
         #Создание
+        J.addTask(dict_data=J.readJSON(),
+                    key=dateTimeStart,
+                    start=dateTimeStart,
+                    end=dateTimeEnd,
+                    name=name,
+                    text=description)
         print(bcolors.OKGREEN+"План успешно создан"+bcolors.ENDC)
       elif (choice == "3"):
         print(bcolors.BOLD+bcolors.WARNING)
@@ -128,10 +145,27 @@ def ConsoleInterface():
         print("         [bug] .*' /  .*' ; .*`- +'  `*'")
         print("               `*-*   `*-*  `*-*'   ")
         print("Изменение плана")
-        name = input("Введите название плана: ")
-        date = input("Введите дату этого плана: ")
+        #name = input("Введите название плана: ")
+        date = input("Введите дату этого плана и время начала: ")
         if not name or not date:
             print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+        print("Изменяем")
+        J.printTask(J.readJSON(), date)
+        nameNew = input("Введите название: ")
+        dateTimeStartNew = input("Введите дату и время начала: ")
+        dateTimeEndNew = input("Введите дату и время начала: ")
+        descriptionNew = input("Введите описание плана: ")
+        if not nameNew or not dateTimeStartNew or not dateTimeEndNew or not descriptionNew:
+            print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+            break
+        
+        J.updateTask(J.readJSON(),
+                    key=dateTimeStartNew,
+                    start=dateTimeStartNew,
+                    end=dateTimeEndNew,
+                    name=nameNew,
+                    text=descriptionNew)
+        """
         print("Изменяем")
         while True:
             print("1) Название")
@@ -177,14 +211,14 @@ def ConsoleInterface():
                 print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
                 print()
             else:
-                break
+                break"""
       elif (choice == "4"):
         print(bcolors.OKGREEN)  
         print("  /\_/\*")
         print(" ( o.o )")
         print("  > ^ <")
         print("Удаление плана")
-        name = input("Введите название плана: ")
+        #name = input("Введите название плана: ")
         date = input("Введите дату этого плана: ")
         if not name or not date:
             print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
@@ -195,6 +229,7 @@ def ConsoleInterface():
             choice4 = input("Введите выбор: ")
             if (choice4 == "1"):
                 #УДАЛЕНИЕ РАЗ И НАВСЕГДА
+                J.delTask(J.readJSON(), key=date)
                 print(bcolors.OKGREEN+"Удаление произошло успешно"+bcolors.ENDC)
                 break
             else:
@@ -226,7 +261,7 @@ def ConsoleInterface():
         print("До свидания!"+bcolors.ENDC)
         return 0
       else:
-        print(bcolors.FAIL+"Такой опции нет. Попробуйте цифры от 1 до 5"+bcolors.ENDC)
+        print("Такой опции нет. Попробуйте цифры от 1 до 5")
         
         
 ConsoleInterface()
