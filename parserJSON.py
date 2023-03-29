@@ -1,18 +1,19 @@
 import json
 
 
-def readJSON(FileName):
+def readJSON(FileName="data.json"):
     with open(FileName, "r", encoding='utf-8') as f:
         return json.load(f) 
 
 
-def writeJSON(data, FileName):
+def writeJSON(data, FileName="data.json"):
     with open(FileName, "w", encoding='utf-8') as f:
         return json.dump(data, f)      
 
 
 def delTask(dict_data, key):
         del dict_data[key]
+        writeJSON(data=dict_data)
 
 
 def addTask(dict_data, key, start,end,name,text):
@@ -22,12 +23,14 @@ def addTask(dict_data, key, start,end,name,text):
                 "name":name,
                 "text":text}}
         dict_data.update(task)
+        writeJSON(data=dict_data)
         
         
 def updateTask(dict_data, key, start,end,name,text):
         del dict_data[key]
         addTask(dict_data, key, start,end,name,text)
-        
+        writeJSON(data=dict_data)
+
 
 def printTask(dict_data, key):
 
