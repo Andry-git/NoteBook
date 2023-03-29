@@ -226,7 +226,7 @@ def ConsoleInterface():
         print("До свидания!"+bcolors.ENDC)
         return 0
       else:
-        print("Такой опции нет. Попробуйте цифры от 1 до 5")
+        print(bcolors.FAIL+"Такой опции нет. Попробуйте цифры от 1 до 5"+bcolors.ENDC)
         
         
 ConsoleInterface()
