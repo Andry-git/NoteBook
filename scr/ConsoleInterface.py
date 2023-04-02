@@ -1,4 +1,5 @@
-import parserJSON as J
+from scr import parserJSON as J
+#import parserJSON as J
 """
 readJSON
 
@@ -67,6 +68,8 @@ def ConsoleInterface():
             print("  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |")
             print("  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |")
             print("Список планов")
+            print()
+            """
             print("1) На сегодня")
             print("2) На эту неделю")
             print("3) На этот месяц")
@@ -85,10 +88,14 @@ def ConsoleInterface():
                 print()
             elif (choice1 == "4"):
                 #Планы за всё время 
-                J.printTaskALL(J.readJSON())
-                print()
-            else:
-                break
+                """
+            J.printTaskALL(J.readJSON())
+            print()
+            break
+             
+            #else:
+               # break
+            
       elif (choice == "2"):
         print(bcolors.HEADER)
         print("             *     ,MMM8&&&.            *")
@@ -115,18 +122,23 @@ def ConsoleInterface():
         print("Добавление плана")
         name = input("Введите название: ")
         dateTimeStart = input("Введите дату и время начала: ")
-        dateTimeEnd = input("Введите дату и время начала: ")
-        description = input("Введите описание плана: ")
-        if not name or not dateTimeStart or not dateTimeEnd or not description:
-            print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-        #Создание
-        J.addTask(dict_data=J.readJSON(),
-                    key=dateTimeStart,
-                    start=dateTimeStart,
-                    end=dateTimeEnd,
-                    name=name,
-                    text=description)
-        print(bcolors.OKGREEN+"План успешно создан"+bcolors.ENDC)
+        if dateTimeStart in J.readJSON():
+            print(bcolors.FAIL+"есть такой"+bcolors.ENDC)
+            #break
+        else:
+            
+            dateTimeEnd = input("Введите дату и время окончания: ")
+            description = input("Введите описание плана: ")
+            if not name or not dateTimeStart or not dateTimeEnd or not description:
+                print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+            #Создание
+            J.addTask(dict_data=J.readJSON(),
+                        key=dateTimeStart,
+                        start=dateTimeStart,
+                        end=dateTimeEnd,
+                        name=name,
+                        text=description)
+            print(bcolors.OKGREEN+"План успешно создан"+bcolors.ENDC)
       elif (choice == "3"):
         print(bcolors.BOLD+bcolors.WARNING)
         print("                _")
@@ -147,71 +159,75 @@ def ConsoleInterface():
         print("Изменение плана")
         #name = input("Введите название плана: ")
         date = input("Введите дату этого плана и время начала: ")
-        if not name or not date:
+        if not date:
             print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
         print("Изменяем")
         J.printTask(J.readJSON(), date)
         nameNew = input("Введите название: ")
         dateTimeStartNew = input("Введите дату и время начала: ")
-        dateTimeEndNew = input("Введите дату и время начала: ")
+        dateTimeEndNew = input("Введите дату и время окончания: ")
         descriptionNew = input("Введите описание плана: ")
-        if not nameNew or not dateTimeStartNew or not dateTimeEndNew or not descriptionNew:
-            print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-            break
-        
-        J.updateTask(J.readJSON(),
-                    key=dateTimeStartNew,
-                    start=dateTimeStartNew,
-                    end=dateTimeEndNew,
-                    name=nameNew,
-                    text=descriptionNew)
-        """
-        print("Изменяем")
-        while True:
-            print("1) Название")
-            print("2) Время начала и конца")
-            print("3) Описание")
-            print("4) Всё")
-            print("5) Назад")
-            choice3 = input("Введите выбор: ")
-            if (choice3 == "1"):
-                #Смена названия
-                nameNew = input("Введите название: ")
-                if not nameNew:
-                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-                ##############################
-                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
-                print()
-            elif (choice3 == "2"):
-                #Смена времени и даты
-                dateTimeStartNew = input("Введите дату и время начала: ")
-                dateTimeEndNew = input("Введите дату и время начала: ")
-                if not dateTimeStartNew or not dateTimeEndNew:
-                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-                ##############################
-                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
-                print()            
-            elif (choice3 == "3"):
-                #Смена описания 
-                descriptionNew = input("Введите описание плана: ")
-                if not descriptionNew:
-                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-                ##############################
-                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
-                print()
-            elif (choice3 == "4"):
-                #Смена всего 
-                nameNew = input("Введите название: ")
-                dateTimeStartNew = input("Введите дату и время начала: ")
-                dateTimeEndNew = input("Введите дату и время начала: ")
-                descriptionNew = input("Введите описание плана: ")
-                if not nameNew or not dateTimeStartNew or not dateTimeEndNew or not descriptionNew:
-                    print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-                ##############################
-                print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
-                print()
-            else:
-                break"""
+        if not date in J.readJSON():
+            print(bcolors.FAIL+"нет ключа"+bcolors.ENDC)
+            #break
+        else:
+            if not nameNew or not dateTimeStartNew or not dateTimeEndNew or not descriptionNew:
+                print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                break
+            
+            J.updateTask(J.readJSON(),
+                        key=dateTimeStartNew,
+                        start=dateTimeStartNew,
+                        end=dateTimeEndNew,
+                        name=nameNew,
+                        text=descriptionNew)
+            """
+            print("Изменяем")
+            while True:
+                print("1) Название")
+                print("2) Время начала и конца")
+                print("3) Описание")
+                print("4) Всё")
+                print("5) Назад")
+                choice3 = input("Введите выбор: ")
+                if (choice3 == "1"):
+                    #Смена названия
+                    nameNew = input("Введите название: ")
+                    if not nameNew:
+                        print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                    ##############################
+                    print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
+                    print()
+                elif (choice3 == "2"):
+                    #Смена времени и даты
+                    dateTimeStartNew = input("Введите дату и время начала: ")
+                    dateTimeEndNew = input("Введите дату и время начала: ")
+                    if not dateTimeStartNew or not dateTimeEndNew:
+                        print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                    ##############################
+                    print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
+                    print()            
+                elif (choice3 == "3"):
+                    #Смена описания 
+                    descriptionNew = input("Введите описание плана: ")
+                    if not descriptionNew:
+                        print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                    ##############################
+                    print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
+                    print()
+                elif (choice3 == "4"):
+                    #Смена всего 
+                    nameNew = input("Введите название: ")
+                    dateTimeStartNew = input("Введите дату и время начала: ")
+                    dateTimeEndNew = input("Введите дату и время начала: ")
+                    descriptionNew = input("Введите описание плана: ")
+                    if not nameNew or not dateTimeStartNew or not dateTimeEndNew or not descriptionNew:
+                        print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
+                    ##############################
+                    print(bcolors.OKGREEN+"Изменение прошло успешно"+bcolors.ENDC)
+                    print()
+                else:
+                    break"""
       elif (choice == "4"):
         print(bcolors.OKGREEN)  
         print("  /\_/\*")
@@ -219,22 +235,28 @@ def ConsoleInterface():
         print("  > ^ <")
         print("Удаление плана")
         #name = input("Введите название плана: ")
-        date = input("Введите дату этого плана: ")
-        if not name or not date:
+        date = input("Введите дату начала этого плана: ")
+        if not date:
             print(bcolors.FAIL+"Вводимые поля не должны быть пусты"+bcolors.ENDC)
-        while True:
-            print("Вы уверены, что хотите удалить?")
-            print("1) Да")
-            print("2) Нет")
-            choice4 = input("Введите выбор: ")
-            if (choice4 == "1"):
-                #УДАЛЕНИЕ РАЗ И НАВСЕГДА
-                J.delTask(J.readJSON(), key=date)
-                print(bcolors.OKGREEN+"Удаление произошло успешно"+bcolors.ENDC)
-                break
-            else:
-                print(bcolors.FAIL+"Удаление отменено"+bcolors.ENDC)
-                break
+        if not date in J.readJSON():
+            print(bcolors.FAIL+"нет ключа"+bcolors.ENDC)
+            #break
+        else:
+            while True:
+                print("Вы уверены, что хотите удалить?")
+                print("1) Да")
+                print("2) Нет")
+                choice4 = input("Введите выбор: ")
+                
+                
+                if (choice4 == "1"):
+                    #УДАЛЕНИЕ РАЗ И НАВСЕГДА
+                    J.delTask(J.readJSON(), key=date)
+                    print(bcolors.OKGREEN+"Удаление произошло успешно"+bcolors.ENDC)
+                    break
+                else:
+                    print(bcolors.FAIL+"Удаление отменено"+bcolors.ENDC)
+                    break
       elif (choice == "5"):
         print(bcolors.OKBLUE) 
         print(" *                  *")
@@ -263,6 +285,7 @@ def ConsoleInterface():
       else:
         print(bcolors.FAIL+"Такой опции нет. Попробуйте цифры от 1 до 5"+bcolors.ENDC)
         
-        
-ConsoleInterface()
+if __name__ == '__main__':
+    
+    ConsoleInterface()
 
