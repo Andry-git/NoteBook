@@ -1,19 +1,36 @@
 import unittest
-from TimeInterval import TimeInterval
+import TimeInterval
+import parserJSON
 
-class TimeInterval(unittest.TestCase):
-  def setUp(self):
-    self.TimeInterval = TimeInterval()
-  #Each test method starts with the keyword test_
-  def TimeInterval(self):
-    self.assertTrue(self.TimeInterval.TimeInterval(1,5,5,8))
-    self.assertTrue(self.TimeInterval.TimeInterval(1,7,5,8))
-    self.assertTrue(self.TimeInterval.TimeInterval(5,8,1,9))
-    self.assertTrue(self.TimeInterval.TimeInterval(1,5,5,8))
-    self.failIf(self.TimeInterval.TimeInterval(1,5,7,8))
-  def ProverkaInterval(self):
-    self.assertTrue(self.TimeInterval.ProverkaInterval(1,5))
-    self.failIf(self.TimeInterval.ProverkaInterval(5,1))
-
-if __name__ == "__run__":
-  unittest.run()
+class Test(unittest.TestCase):
+    
+    def test_TimeInterval1(self):
+        self.assertFalse(TimeInterval.TimeInterval("01/01/2003, 00:01",
+                                                "01/01/2003, 00:02",
+                                                "01/01/2003, 00:03",
+                                                "01/01/2003, 00:04"))
+        
+    def test_TimeInterval2(self):
+        self.assertTrue(TimeInterval.TimeInterval("01/01/2003, 00:01",
+                                                "01/01/2003, 00:04",
+                                                "01/01/2003, 00:02",
+                                                "01/01/2003, 00:03"))
+    def test_TimeInterval3(self):
+        self.assertTrue(TimeInterval.TimeInterval("01/01/2003, 00:01",
+                                                "01/01/2003, 00:03",
+                                                "01/01/2003, 00:02",
+                                                "01/01/2003, 00:04"))
+    def test_TimeInterval4(self):
+        self.assertTrue(TimeInterval.TimeInterval("01/01/2003, 00:01",
+                                                "01/01/2003, 00:02",
+                                                "01/01/2003, 00:02",
+                                                "01/01/2003, 00:04"))
+                                                
+    def test_ProverkaInterval1(self):
+        self.assertFalse(TimeInterval.ProverkaInterval("01/01/2003, 00:02","01/01/2003, 00:01"))
+        
+    def test_ProverkaInterval2(self):
+        self.assertTrue(TimeInterval.ProverkaInterval("01/01/2003, 00:01","01/01/2003, 00:02"))
+    
+if __name__ == '__main__':
+    unittest.main()
