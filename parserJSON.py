@@ -17,19 +17,20 @@ def delTask(dict_data, key):
     writeJSON(data=dict_data)
 
 
-def addTask(dict_data, key, start, end, name, text):
+def addTask(dict_data, key, start, end, name, text, priority):
     task = {key: {
         "start": start,
         "end": end,
         "name": name,
-        "text": text}}
+        "text": text,
+        "priority": priority}}
     dict_data.update(task)
     writeJSON(data=dict_data)
 
 
-def updateTask(dict_data, key, start, end, name, text):
+def updateTask(dict_data, key, start, end, name, text, priority):
     del dict_data[key]
-    addTask(dict_data, key, start, end, name, text)
+    addTask(dict_data, key, start, end, name, text, priority)
     writeJSON(data=dict_data)
 
 
@@ -39,6 +40,7 @@ def printTask(dict_data, key):
     print(d["end"])
     print(d["name"])
     print(d["text"])
+    print(d["priority"])
     print()
 
 
@@ -62,7 +64,7 @@ def checkInterval(dict_data, TimeStartNew, TimeEndNew):
 
 
 
-
+# вывод задач за выбранный период
 def printTasksInInterval(dict_data, TimeStartNew, TimeEndNew):
     keys = dict_data.keys()
     neededKeys = []
@@ -74,8 +76,6 @@ def printTasksInInterval(dict_data, TimeStartNew, TimeEndNew):
         printTask(dict_data, key)
     if len(neededKeys)==0:
         print("Нет задач")
-
-
 
 
 if __name__ == '__main__':
