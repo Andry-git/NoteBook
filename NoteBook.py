@@ -1,4 +1,4 @@
-from scr import ConsoleInterface as c
+import ConsoleInterface as c
 
 
 if __name__ == '__main__':
