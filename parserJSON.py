@@ -63,6 +63,19 @@ def checkInterval(dict_data, TimeStartNew, TimeEndNew):
 
 
 
+def printTasksInInterval(dict_data, TimeStartNew, TimeEndNew):
+    keys = dict_data.keys()
+    neededKeys = []
+    for key in keys:
+        d = dict_data[key]
+        if TI.TimeInterval(d["start"], d["end"], TimeStartNew, TimeEndNew):
+            neededKeys.append(key)
+    for key in neededKeys:
+        printTask(dict_data, key)
+    if len(neededKeys)==0:
+        print("Нет задач")
+
+
 
 
 if __name__ == '__main__':
