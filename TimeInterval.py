@@ -20,6 +20,8 @@ def TimeInterval(TI1start, TI1end, TI2start, TI2end):
 # Если начало интервала меньше конца интервала - True
 # Если конец интервала меньше начала интервала - FALSE
 def ProverkaInterval(TIstart, TIend):
+    TIstart = datetime.strptime(TIstart, format)
+    TIend = datetime.strptime(TIend, format)
     return TIstart <= TIend
 
 
